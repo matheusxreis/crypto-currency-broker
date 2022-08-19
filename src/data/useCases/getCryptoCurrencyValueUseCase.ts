@@ -9,9 +9,14 @@ export class GetCryptoCurrencyValueUseCase implements iGetCryptoCurrencyValue {
 
   async execute (params: { cryptoCurrency: string; currency: string; }): Promise<Candle> {
     const { cryptoCurrency, currency } = params;
-    const response = await this.repository.getCryptoCurrencyValue({ cryptoCurrency, currency });
-    const value: number = response[cryptoCurrency][currency];
-    const candle = new Candle(value, currency, cryptoCurrency, value, value);
-    return candle;
+    try {
+      const response = await this.repository.getCryptoCurrencyValue({ cryptoCurrency, currency });
+      const value: number = response[cryptoCurrency][currency];
+      const candle = new Candle(value, currency, cryptoCurrency, value, value);
+      return candle;
+    } catch (err) {
+      console.log(err);
+	  return new Candle(1, '1', '1', 1, 2);
+    }
   }
 }
