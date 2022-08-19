@@ -1,3 +1,3 @@
 import axios from 'axios';
 
-export const api = axios.create({ baseURL: process.env.CRYPTO_API_BASE_URL });
+export const api = axios.create({ baseURL: 'https://api.coingecko.com/api/v3/simple/price' });
