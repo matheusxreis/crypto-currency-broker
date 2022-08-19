@@ -1,9 +1,12 @@
-import { Candle } from 'src/domain/entities/candle';
+import { Candle } from '../../domain/entities/candle';
 import { iGetCryptoCurrencyValue } from 'src/domain/useCases/igetCryptoCurrencyValue';
+import { injectable, inject } from 'tsyringe';
 import { iGetCryptoCurrencyValueRepository } from '../irepositories/igetCryptoCurrencyValueRepository';
 
+@injectable()
 export class GetCryptoCurrencyValueUseCase implements iGetCryptoCurrencyValue {
-  constructor (private repository: iGetCryptoCurrencyValueRepository) {}
+  constructor (@inject('CryptoCurrencyRepository') private repository: iGetCryptoCurrencyValueRepository) {}
+
   async execute (params: { cryptoCurrency: string; currency: string; }): Promise<Candle> {
     const { cryptoCurrency, currency } = params;
     const response = await this.repository.getCryptoCurrencyValue({ cryptoCurrency, currency });
