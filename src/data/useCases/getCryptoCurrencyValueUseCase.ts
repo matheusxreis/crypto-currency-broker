@@ -16,7 +16,7 @@ export class GetCryptoCurrencyValueUseCase implements iGetCryptoCurrencyValue {
       return candle;
     } catch (err) {
       console.log(err);
-	  return new Candle(1, '1', '1', 1, 2);
+      return new Candle(1, '1', '1', 1, 2);
     }
   }
 }
