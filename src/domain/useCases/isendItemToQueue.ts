@@ -1,3 +1,3 @@
 export interface iSendItemToQueue {
-execute(queue:string, item:string):Promise<void>
+execute(queue:string, item:string):Promise<boolean>
 }
