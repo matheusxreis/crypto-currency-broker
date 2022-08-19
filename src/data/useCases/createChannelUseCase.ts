@@ -7,9 +7,9 @@ export class CreateChannelUseCase implements iCreateChannel {
   constructor (@inject('MessageBrokerRepository')
                private repository: iCreateChannelRepository) {}
 
-  async execute (channelName: string): Promise<boolean> {
+  async execute (): Promise<boolean> {
     try {
-      this.repository.createChannel(channelName);
+      await this.repository.createChannel();
       return true;
     } catch (err) {
       console.log('err', err);
