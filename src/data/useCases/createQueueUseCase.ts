@@ -9,7 +9,7 @@ export class CreateQueueUseCase implements iCreateQueue {
 
   async execute (queueName: string): Promise<boolean> {
     try {
-      this.repository.createQueue(queueName);
+      await this.repository.createQueue(queueName);
       return true;
     } catch (err) {
       console.log('err', err);
