@@ -4,5 +4,6 @@ yarn.lock
 /dist
 /coverage
 /bin
-package-lock.json 
+package-lock.json
 .package.config
+.env
