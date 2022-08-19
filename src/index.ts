@@ -4,15 +4,27 @@ import { config as loadEnvVariables } from 'dotenv';
 import { container } from 'tsyringe';
 import { GetCryptoCurrencyValueUseCase } from './data/useCases/getCryptoCurrencyValueUseCase';
 import { Interval } from './shared/enums/interval';
+import { CreateQueueUseCase } from './data/useCases/createQueueUseCase';
+import { SendItemToQueueUseCase } from './data/useCases/sendItemToQueueUseCase';
+import { CreateChannelUseCase } from './data/useCases/createChannelUseCase';
 loadEnvVariables();
 
 const getCryptoCurrencyValue = container.resolve(GetCryptoCurrencyValueUseCase);
+const createChannel = container.resolve(CreateChannelUseCase);
+const createQueue = container.resolve(CreateQueueUseCase);
+const sendItemToQueue = container.resolve(SendItemToQueueUseCase);
 
 const requestBitcoinBRLValue = async () => {
   return await getCryptoCurrencyValue.execute({ currency: 'brl', cryptoCurrency: 'bitcoin' });
 };
 
+const creatingMessageBroker = async () => {
+  await createChannel.execute();
+  createQueue.execute('testing');
+};
+
 async function init () {
+  await creatingMessageBroker();
   while (true) {
     const loopTimes = Interval.ONE_MINUTE / Interval.TEN_SECONDS;
     console.log('STARTING.....');
